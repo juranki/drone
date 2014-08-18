@@ -10,8 +10,8 @@ RUN wget http://downloads.drone.io/latest/drone.deb
 RUN dpkg -i drone.deb
 
 EXPOSE 80
-
 VOLUME ["/var/lib/docker", "/var/lib/drone"]
+RUN echo 'DOCKER_OPTS="-H unix:///var/run/docker.sock"' >> /etc/default/docker
 
 CMD /etc/init.d/docker start && /usr/local/bin/droned --port=:80 --datasource=/var/lib/drone/drone.sqlite
 
